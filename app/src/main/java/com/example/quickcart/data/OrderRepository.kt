@@ -1,8 +1,9 @@
 package com.example.quickcart.data
 
-import com.example.quickcart.model.Product
+import com.example.quickcart.ui.theme.screens.productdetails.Product
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firestore.v1.StructuredQuery.Order
 import java.util.*
 
 class OrderRepository {
@@ -31,6 +32,27 @@ class OrderRepository {
             }
             .addOnFailureListener {
                 onComplete(false)
+            }
+    }
+    fun getOrders(onResult: (List<Order>) -> Unit) {
+        if (userId == null) {
+            onResult(emptyList())
+            return
+        }
+
+        db.collection("users")
+            .document(userId)
+            .collection("orders")
+            .orderBy("timestamp", com.google.firebase.firestore.Query.Direction.DESCENDING)
+            .get()
+            .addOnSuccessListener { result ->
+                val orders = result.mapNotNull { doc ->
+                    doc.toObject(Order::class.java)
+                }
+                onResult(orders)
+            }
+            .addOnFailureListener {
+                onResult(emptyList())
             }
     }
 

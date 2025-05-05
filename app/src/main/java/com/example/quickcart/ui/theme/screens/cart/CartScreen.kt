@@ -10,15 +10,16 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.example.quickcart.model.Product
-import com.example.quickcart.repository.CartRepository
+import com.example.quickcart.data.OrderRepository
+import com.example.quickcart.ui.theme.screens.productdetails.Product
 
 @Composable
 fun CartScreen() {
     val cartRepo = remember { CartRepository() }
     var cartItems by remember { mutableStateOf<List<Product>>(emptyList()) }
     var totalPrice by remember { mutableStateOf(0.0) }
-
+    val orderRepo = remember { OrderRepository() }
+    var message by remember { mutableStateOf("") }
     fun loadCart() {
         cartRepo.getCartItems {
             cartItems = it
@@ -57,6 +58,17 @@ fun CartScreen() {
             Spacer(modifier = Modifier.height(16.dp))
             Text("Total: $${"%.2f".format(totalPrice)}", style = MaterialTheme.typography.titleLarge)
         }
+    }
+    Button(onClick = {orderRepo.placeOrder(cartItems){success->message=if (success)"Order places successfully!" else "Order Failed."
+    loadCart()
+    }
+    },
+        modifier = Modifier.fillMaxWidth()) {
+        Text("Checkout")
+    }
+    if (message.isNotEmpty()){
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(message, color=MaterialTheme.colorScheme.secondary)
     }
 }
 

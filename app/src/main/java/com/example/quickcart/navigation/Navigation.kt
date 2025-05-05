@@ -7,10 +7,13 @@ import androidx.navigation.compose.composable
 import com.example.quickcart.SplashScreen
 import com.example.quickcart.ui.theme.screens.cart.CartScreen
 import com.example.quickcart.ui.theme.screens.dashboard.HomeScreen
+import com.example.quickcart.ui.theme.screens.login.LoginScreen
 import com.example.quickcart.ui.theme.screens.onboarding.OnboardingScreen
+import com.example.quickcart.ui.theme.screens.chekout.OrderHistoryScreen
 import com.example.quickcart.ui.theme.screens.productdetails.Product
 import com.example.quickcart.ui.theme.screens.productdetails.ProductDetailScreen
 import com.example.quickcart.ui.theme.screens.register.RegisterScreen
+import com.example.quickcart.ui.theme.screens.userprofile.ProfileScreen
 
 object Routes{
     const val SPLASH = "splash"
@@ -31,10 +34,16 @@ fun AppNavigation(navController: NavHostController){
         composable(Routes.ONBOARDING)
         { OnboardingScreen(navController) }
         composable(Routes.REGISTER)
+        { RegisterScreen(navController) }
         composable("cart") {
             CartScreen()
         }
-        { RegisterScreen(navController) }
+        composable("profile") {
+            ProfileScreen(navController)
+        }
+        composable("orders") {
+            OrderHistoryScreen()
+        }
         composable("product_detail") { backStackEntry ->
             val product = navController.previousBackStackEntry
                 ?.savedStateHandle?.get<Product>("selected_product")

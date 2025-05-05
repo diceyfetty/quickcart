@@ -2,10 +2,6 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-
-//    id ('com.android.application')
-//    id ('org.jetbrains.kotlin.android')
-//    id ('com.google.gms.google-services')
 }
 
 android {
@@ -14,8 +10,8 @@ android {
 
     defaultConfig {
         applicationId = "com.example.quickcart"
-        minSdk = 21
-        targetSdk = 34
+        minSdk = 24
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -57,6 +53,8 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.firebase.auth.ktx)
+    implementation(libs.firebase.firestore.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -66,16 +64,10 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation("io.coil-kt:coil-compose:2.0.0")
     implementation("androidx.navigation:navigation-compose:2.8.4")
-    implementation("androidx.activity:activity-compose:1.8.2")
-    implementation("androidx.compose.ui:ui:1.6.4")
-    implementation("androidx.compose.material3:material3:1.2.1")
-    implementation("androidx.navigation:navigation-compose:2.7.7")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
-    implementation("com.google.firebase:firebase-firestore-ktx")
-    implementation("com.google.firebase:firebase-storage-ktx")
-    implementation("com.google.firebase:firebase-storage-ktx")
-    implementation("com.google.accompanist:accompanist-systemuicontroller:0.30.1")
-    implementation ("com.google.accompanist:accompanist-pager:0.30.1")
-    implementation ("io.coil-kt:coil-compose:2.5.0")
+
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.1")
+
 
 }

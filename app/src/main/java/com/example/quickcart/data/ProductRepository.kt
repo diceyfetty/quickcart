@@ -1,6 +1,5 @@
 package com.example.quickcart.data
 
-//import com.example.quickcart.model.Product
 import com.example.quickcart.ui.theme.screens.productdetails.Product
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject

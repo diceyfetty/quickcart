@@ -7,8 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
-//import com.example.quickcart.model.Product
-import com.example.quickcart.repository.CartRepository
+import com.example.quickcart.ui.theme.screens.cart.CartRepository
 
 @Composable
 fun ProductDetailScreen(

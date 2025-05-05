@@ -1,7 +1,6 @@
-package com.example.quickcart.data
+package com.example.quickcart.ui.theme.screens.cart
 
 
-import com.example.quickcart.model.Product
 import com.example.quickcart.ui.theme.screens.productdetails.Product
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
