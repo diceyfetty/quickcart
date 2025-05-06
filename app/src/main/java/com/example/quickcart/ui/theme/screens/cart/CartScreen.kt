@@ -13,6 +13,7 @@ import coil.compose.AsyncImage
 import com.example.quickcart.data.OrderRepository
 import com.example.quickcart.ui.theme.screens.productdetails.Product
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CartScreen() {
     val cartRepo = remember { CartRepository() }

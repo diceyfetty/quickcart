@@ -38,6 +38,9 @@ fun AppNavigation(navController: NavHostController){
         composable("cart") {
             CartScreen()
         }
+        composable("orders") {
+            OrderHistoryScreen()
+        }
         composable("profile") {
             ProfileScreen(navController)
         }

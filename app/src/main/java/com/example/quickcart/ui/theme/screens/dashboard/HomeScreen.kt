@@ -7,7 +7,10 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -23,8 +26,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.quickcart.R
+import com.example.quickcart.data.AuthRepository
 import com.example.quickcart.ui.theme.screens.productdetails.Product
 import com.example.quickcart.data.ProductRepository
+import com.example.quickcart.navigation.Routes
 
 data class ProductCategory(val name: String, val imageRes: Int)
 
@@ -46,23 +51,23 @@ fun HomeScreen(navController: NavController) {
                 colors = TopAppBarDefaults.mediumTopAppBarColors(
                     containerColor = Color(0xFF00BFA5),
                     titleContentColor = Color.White
-                )
-//                        actions = {
-//                    IconButton(onClick = { navController.navigate("cart") }) {
-//                        Icon(imageVector = Icons.Default.ShoppingCart, contentDescription = "Cart", tint = Color.White)
-//                    }
-//                }
-//                        actions = {
-//                    TextButton(onClick = {
-//                        AuthRepository().logoutUser()
-//                        navController.navigate(Routes.LOGIN) {
-//                            popUpTo(Routes.HOME) { inclusive = true }
-//                        }
-//                    }) {
-//                        Text("Logout", color = Color.White)
-//                    }
-//                }
+                ),
+                actions = {
+                    IconButton(onClick = { navController.navigate("cart") }) {
+                        Icon(imageVector = Icons.Default.ShoppingCart, contentDescription = "Cart", tint = Color.White)
+                    }
+
+                    TextButton(onClick = {
+                        AuthRepository().logoutUser()
+                        navController.navigate(Routes.LOGIN) {
+                            popUpTo(Routes.HOME) { inclusive = true }
+                        }
+                    }) {
+                        Text("Logout", color = Color.White)
+                    }
+                }
             )
+
         }
     ) { paddingValues ->
         Column(
@@ -140,22 +145,19 @@ fun HomeScreen() {
 
             LazyVerticalGrid(columns = GridCells.Fixed(2), content = {
                 items(products) { product ->
-                    ProductCard(product = product) {
-                        navController.currentBackStackEntry?.savedStateHandle?.set("selected_product", product)
-                        navController.navigate("product_detail")
-                    }
+                    ProductCard(product)
                 }
             }, modifier = Modifier.fillMaxHeight())
         }
     }
 }
+
 @Composable
-fun ProductCard(product: Product, onClick: () -> Unit) {
+fun ProductCard(product: Product) {
     Card(
         modifier = Modifier
             .padding(8.dp)
-            .fillMaxWidth()
-            .clickable { onClick() },
+            .fillMaxWidth(),
         elevation = CardDefaults.cardElevation(4.dp)
     ) {
         Column(modifier = Modifier.padding(12.dp)) {
@@ -172,26 +174,3 @@ fun ProductCard(product: Product, onClick: () -> Unit) {
         }
     }
 }
-
-//@Composable
-//fun ProductCard(product: Product) {
-//    Card(
-//        modifier = Modifier
-//            .padding(8.dp)
-//            .fillMaxWidth(),
-//        elevation = CardDefaults.cardElevation(4.dp)
-//    ) {
-//        Column(modifier = Modifier.padding(12.dp)) {
-//            AsyncImage(
-//                model = product.imageUrl,
-//                contentDescription = product.name,
-//                modifier = Modifier
-//                    .height(120.dp)
-//                    .fillMaxWidth()
-//            )
-//            Spacer(modifier = Modifier.height(8.dp))
-//            Text(product.name, fontWeight = FontWeight.SemiBold)
-//            Text("$${product.price}", color = Color(0xFF00BFA5))
-//        }
-//    }
-//}

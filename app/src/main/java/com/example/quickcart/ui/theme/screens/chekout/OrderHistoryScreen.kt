@@ -1,15 +1,14 @@
 package com.example.quickcart.ui.theme.screens.chekout
 
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.quickcart.data.OrderRepository
-import com.google.firestore.v1.StructuredQuery.Order
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -17,7 +16,7 @@ import java.util.*
 @Composable
 fun OrderHistoryScreen() {
     val orderRepo = remember { OrderRepository() }
-    var orders by remember { mutableStateOf<List<Order>>(emptyList()) }
+    var orders by remember { mutableStateOf<List<UserOrder>>(emptyList()) }
 
     LaunchedEffect(true) {
         orderRepo.getOrders {
@@ -49,7 +48,7 @@ fun OrderHistoryScreen() {
 }
 
 @Composable
-fun OrderCard(order: Order) {
+fun OrderCard(order: UserOrder) {
     val dateFormat = SimpleDateFormat("MMM dd, yyyy - hh:mm a", Locale.getDefault())
 
     Card(modifier = Modifier.fillMaxWidth()) {

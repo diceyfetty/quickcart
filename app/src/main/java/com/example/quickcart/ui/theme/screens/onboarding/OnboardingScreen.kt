@@ -16,7 +16,7 @@ import com.example.quickcart.navigation.Routes
 import com.google.accompanist.pager.*
 import kotlinx.coroutines.launch
 
-@OptIn (ExperimentalPagerApi::class)
+@OptIn(ExperimentalPagerApi::class)
 @Composable
 fun OnboardingScreen(navController: NavController) {
     val pagerState = rememberPagerState()

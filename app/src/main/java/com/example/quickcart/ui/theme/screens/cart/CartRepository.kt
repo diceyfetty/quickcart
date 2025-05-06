@@ -23,39 +23,39 @@ class CartRepository {
             .addOnSuccessListener { onResult(true) }
             .addOnFailureListener { onResult(false) }
     }
-}
-fun getCartItems(onResult: (List<Product>) -> Unit) {
-    if (userId == null) {
-        onResult(emptyList())
-        return
-    }
-
-    db.collection("users")
-        .document(userId)
-        .collection("cart")
-        .get()
-        .addOnSuccessListener { result ->
-            val cartItems = result.mapNotNull { doc ->
-                doc.toObject(Product::class.java).copy(id = doc.id)
-            }
-            onResult(cartItems)
-        }
-        .addOnFailureListener {
+    fun getCartItems(onResult: (List<Product>) -> Unit) {
+        if (userId == null) {
             onResult(emptyList())
+            return
         }
-}
 
-fun removeItem(productId: String, onComplete: (Boolean) -> Unit) {
-    if (userId == null) {
-        onComplete(false)
-        return
+        db.collection("users")
+            .document(userId)
+            .collection("cart")
+            .get()
+            .addOnSuccessListener { result ->
+                val cartItems = result.mapNotNull { doc ->
+                    doc.toObject(Product::class.java).copy(id = doc.id)
+                }
+                onResult(cartItems)
+            }
+            .addOnFailureListener {
+                onResult(emptyList())
+            }
     }
 
-    db.collection("users")
-        .document(userId)
-        .collection("cart")
-        .document(productId)
-        .delete()
-        .addOnSuccessListener { onComplete(true) }
-        .addOnFailureListener { onComplete(false) }
+    fun removeItem(productId: String, onComplete: (Boolean) -> Unit) {
+        if (userId == null) {
+            onComplete(false)
+            return
+        }
+
+        db.collection("users")
+            .document(userId)
+            .collection("cart")
+            .document(productId)
+            .delete()
+            .addOnSuccessListener { onComplete(true) }
+            .addOnFailureListener { onComplete(false) }
+    }
 }
